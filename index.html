@@ -18,29 +18,35 @@
     canvas.height = document.documentElement.clientHeight
     var ctx = canvas.getContext('2d')
     ctx.fillStyle = 'rgb(0,0,0)'
-    // ctx.fillStyle = 'black'
     ctx.strokeStyle = 'none'
+    ctx.lineWidth = 6
+    ctx.lineCap = 'round'
 
     let painting = false
-    canvas.onpointerdown = (e) => {
+    let startCoordinate
+
+    canvas.onmousedown = (e) => {
       painting = true
       startCoordinate = [e.clientX, e.clientY]
     }
-    canvas.onpointerup = () => {
+
+    canvas.onmouseup = () => {
       painting = false
     }
-    let startCoordinate
+
     canvas.onmousemove = (e) => {
       if (painting === true) {
-        console.log(startCoordinate)
-        ctx.moveTo(startCoordinate[0], startCoordinate[1])
+        console.log(e)
+        drawLine(startCoordinate[0], startCoordinate[1], e.clientX, e.clientY)
         startCoordinate = [e.clientX, e.clientY]
-        ctx.lineTo(e.clientX, e.clientY)
-        ctx.closePath()
-        ctx.stroke()
-        // ctx.fill()
-        // ctx.fillRect(e.clientX - 5, e.clientY - 5, 10, 10)
       }
+    }
+    function drawLine(x1, y1, x2, y2) {
+      console.log(x1, y1, x2, y2)
+      ctx.beginPath()
+      ctx.moveTo(x1, y1)
+      ctx.lineTo(x2, y2)
+      ctx.stroke()
     }
   </script>
 </html>

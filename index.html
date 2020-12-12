@@ -25,17 +25,21 @@
 
     let painting = false
     let startCoordinate
+    let startTouch
     if (isTouchDevice) {
       console.log('touch')
-      // canvas.touchstart = (e) => {
-      //   console.log(e, 'mouse')
-      // }
+      canvas.addEventListener('touchstart', (e) => {
+        console.log(e, 'mouse')
+        startTouch = [e.touches[0].clientX, e.touches[0].clientY]
+      })
       canvas.ontouchmove = (e) => {
-        ctx.beginPath()
-        ctx.arc(e.touches[0].clientX, e.touches[0].clientY, 5, 0, 2 * Math.PI)
-        ctx.stroke()
-        ctx.fill()
-        // ;[e.touches[0].clientX, e.touches[0].clientY]
+        drawLine(
+          startTouch[0],
+          startTouch[1],
+          e.touches[0].clientX,
+          e.touches[0].clientY
+        )
+        startTouch = [e.touches[0].clientX, e.touches[0].clientY]
       }
     }
 

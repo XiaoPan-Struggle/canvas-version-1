@@ -22,19 +22,23 @@
     ctx.strokeStyle = 'none'
 
     let painting = false
-    canvas.onpointerdown = () => {
+    canvas.onpointerdown = (e) => {
       painting = true
+      startCoordinate = [e.clientX, e.clientY]
     }
     canvas.onpointerup = () => {
       painting = false
     }
+    let startCoordinate
     canvas.onmousemove = (e) => {
-      // console.log(e)
-      if (painting) {
-        ctx.beginPath()
-        ctx.arc(e.clientX, e.clientY, 5, 0, 2 * Math.PI)
+      if (painting === true) {
+        console.log(startCoordinate)
+        ctx.moveTo(startCoordinate[0], startCoordinate[1])
+        startCoordinate = [e.clientX, e.clientY]
+        ctx.lineTo(e.clientX, e.clientY)
+        ctx.closePath()
         ctx.stroke()
-        ctx.fill()
+        // ctx.fill()
         // ctx.fillRect(e.clientX - 5, e.clientY - 5, 10, 10)
       }
     }

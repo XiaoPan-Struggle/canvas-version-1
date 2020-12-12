@@ -10,17 +10,16 @@
     <canvas id="canvas"></canvas>
   </body>
   <script>
-    // 获取当前屏幕宽高
-    let documentWidth = document.documentElement.clientWidth
-    let documentHeight = document.documentElement.clientHeight
     // console.log(documentWidth)
     var canvas = document.getElementById('canvas')
 
+    // canvas设置为当前屏幕宽高
+    canvas.width = document.documentElement.clientWidth
+    canvas.height = document.documentElement.clientHeight
     var ctx = canvas.getContext('2d')
-    ctx.fillStyle = 'rgb(200,0,0)'
-
-    canvas.width = documentWidth
-    canvas.height = documentHeight
+    ctx.fillStyle = 'rgb(0,0,0)'
+    // ctx.fillStyle = 'black'
+    ctx.strokeStyle = 'none'
 
     let painting = false
     canvas.onpointerdown = () => {
@@ -32,7 +31,11 @@
     canvas.onmousemove = (e) => {
       // console.log(e)
       if (painting) {
-        ctx.fillRect(e.clientX - 5, e.clientY - 5, 10, 10)
+        ctx.beginPath()
+        ctx.arc(e.clientX, e.clientY, 5, 0, 2 * Math.PI)
+        ctx.stroke()
+        ctx.fill()
+        // ctx.fillRect(e.clientX - 5, e.clientY - 5, 10, 10)
       }
     }
   </script>

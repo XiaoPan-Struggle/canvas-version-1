@@ -9,4 +9,19 @@
   <body>
     <canvas id="canvas"></canvas>
   </body>
+  <script>
+    // 获取当前屏幕宽高
+    let documentWidth = document.documentElement.clientWidth
+    let documentHeight = document.documentElement.clientHeight
+    console.log(documentWidth)
+    var canvas = document.getElementById('canvas')
+    canvas.width = documentWidth
+    canvas.height = documentHeight
+    var ctx = canvas.getContext('2d')
+    ctx.fillStyle = 'rgb(200,0,0)'
+    canvas.onclick = (e) => {
+      console.log(e)
+      ctx.fillRect(e.clientX - 5, e.clientY - 5, 10, 10)
+    }
+  </script>
 </html>
